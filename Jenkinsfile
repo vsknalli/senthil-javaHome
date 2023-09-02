@@ -5,6 +5,13 @@ node {
     stage('Compile and package'){
         sh 'mvn package'
     }
+    
+    stage('Sonarqube Analysis'){
+        def mvnHome = tool name: 'Maven' type: 'maven'
+        withSonaQubeEnv('sonarqube'){
+            sh "${mvnHome}/bin/mvn sonar:sonar"
+        }
+    }
     stage('Slack Notification'){
         slackSend baseUrl: 'https://hooks.slack.com/services/', 
         channel: '#devopscicd', 
@@ -12,4 +19,5 @@ node {
         message: 'Wellcome to all', 
         tokenCredentialId: 'slack2'
     }
+    
 }
