@@ -11,11 +11,5 @@ node {
             sh "${mvnHome}/bin/mvn sonar:sonar"
         }
     }
-    stage('Slack Notification'){
-        slackSend baseUrl: 'https://hooks.slack.com/services/', 
-        channel: '#devopscicd', 
-        color: 'good', 
-        message: 'Wellcome to all', 
-        tokenCredentialId: 'slack2'
-    }
+
 }
